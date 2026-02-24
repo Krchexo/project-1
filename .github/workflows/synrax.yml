@@ -11,10 +11,6 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     timeout-minutes: 2 # Stop if it hangs for 2 mins
-    env:
-      NO_COLOR: "1"
-      FORCE_COLOR: "0"
-
     steps:
     # 1. Get the user's code
     - name: Checkout Code
@@ -89,10 +85,10 @@ jobs:
         cd ./frontend
 
         if [ -f synrax_app.log ]; then
-          LOGS=$(tail -n 50 synrax_app.log)
+          LOGS=$(tail -n 50 synrax_app.log | sed -e 's/\x1b\[[0-9;]*[a-zA-Z]//g')
           ERROR_MSG="Your application failed to start or did not respond on port **3001**."
         elif [ -f synrax_build.log ]; then
-          LOGS=$(tail -n 50 synrax_build.log)
+          LOGS=$(tail -n 50 synrax_build.log | sed -e 's/\x1b\[[0-9;]*[a-zA-Z]//g')
           ERROR_MSG="The **Build Command** failed. This is often due to missing dependencies or syntax errors."
         else
           LOGS="No logs found. Please check the Actions tab for setup errors."
