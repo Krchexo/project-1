@@ -11,6 +11,9 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     timeout-minutes: 2 # Stop if it hangs for 2 mins
+    env:
+      NO_COLOR: "1"
+      FORCE_COLOR: "0"
 
     steps:
     # 1. Get the user's code
@@ -23,9 +26,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-      env:
-        NO_COLOR: "1"
-        FORCE_COLOR: "0"
     
 
     # 3. Build and install dependencies
