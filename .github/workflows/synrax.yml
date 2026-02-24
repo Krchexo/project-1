@@ -24,7 +24,8 @@ jobs:
       with:
         node-version: '20'
       env:
-        NO_COLOR: 1
+        NO_COLOR: "1"
+        FORCE_COLOR: "0"
     
 
     # 3. Build and install dependencies
