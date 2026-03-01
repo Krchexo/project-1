@@ -4,7 +4,7 @@ from utils import format_username, divide
 
 app = Flask(__name__)
 
-@app.routes("/")
+@app.route("/")
 def index():
     return "Hello, world!"
 
