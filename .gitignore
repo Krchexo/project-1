@@ -16,4 +16,3 @@ ENV/
 venv/
 env/
 .vscode/
-.ignore
