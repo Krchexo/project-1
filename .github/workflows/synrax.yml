@@ -27,14 +27,14 @@ jobs:
     # 3. Build and install dependencies
     - name: Build and Install Dependencies
       run: |
-        cd .
+        cd ./backend
         echo "Running Build Command: pip install -r requirements.txt"
         pip install -r requirements.txt > synrax_build.log 2>&1
 
     # 4. Smoke test
     - name: Start Smoke Test
       run: |
-        cd .
+        cd ./backend
         
         # 1. Start App
         echo "Starting server with: python app.py"
@@ -82,7 +82,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
-        cd .
+        cd ./backend
 
         if [ -f synrax_app.log ]; then
           LOGS=$(tail -n 50 synrax_app.log | sed -e 's/\x1b\[[0-9;]*[a-zA-Z]//g')
