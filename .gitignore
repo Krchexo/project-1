@@ -16,3 +16,5 @@ ENV/
 venv/
 env/
 .vscode/
+.ignore_this
+.ignore_this_too
