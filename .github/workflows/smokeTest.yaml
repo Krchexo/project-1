@@ -10,7 +10,7 @@ permissions:
 jobs:
   smoke-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 2 # Stop if it hangs for 2 mins
+    timeout-minutes: 5 # Stop if it hangs for 5 mins
     steps:
     # 1. Get the user's code
     - name: Checkout Code
@@ -20,21 +20,21 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.14'
+        python-version: '3.11'
         cache: 'pip'
     
 
     # 3. Build and install dependencies
     - name: Build and Install Dependencies
       run: |
-        cd ./backend
+        cd .
         echo "Running Build Command: pip install -r requirements.txt"
-        pip install -r requirements.txt > synrax_build.log 2>&1
+        pip install -r requirements.txt 2>&1 | tee synrax_build.log
 
     # 4. Smoke test
     - name: Start Smoke Test
       run: |
-        cd ./backend
+        cd .
         
         # 1. Start App
         echo "Starting server with: python app.py"
@@ -82,7 +82,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
-        cd ./backend
+        cd .
 
         if [ -f synrax_app.log ]; then
           LOGS=$(tail -n 50 synrax_app.log | sed -e 's/\x1b\[[0-9;]*[a-zA-Z]//g')
